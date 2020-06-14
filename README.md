@@ -1,6 +1,5 @@
 # PerfectMoneyAPI
 
-[![Latest Stable Version](https://poser.pugx.org/ayubirz/perfect-money-api/v/stable)](https://packagist.org/packages/ayubirz/perfect-money-api)  [![Total Downloads](https://poser.pugx.org/ayubirz/perfect-money-api/downloads)](https://packagist.org/packages/ayubirz/perfect-money-api)  [![Latest Unstable Version](https://poser.pugx.org/ayubirz/perfect-money-api/v/unstable)](https://packagist.org/packages/ayubirz/perfect-money-api)  [![License](https://poser.pugx.org/ayubirz/perfect-money-api/license)](https://packagist.org/packages/ayubirz/perfect-money-api)
 
 An easy to use PHP package to integrate PerfectMoney online payment API into your application.
 You can perform basic functions provided by [PerfectMoney](https://perfectmoney.is) payment gateway.
@@ -13,20 +12,11 @@ Requirements
 * PHP >= 7.0
 
 Installation
-============
-
-If you use composer as your dependency manager, you can download and install the package super easy by just running below command inside your project root directory:
-
-    $ composer require ayubirz/perfect-money-api:dev-master
-
-Currently there is only dev-master available. Soon there will be stable releases to install and use.
+paste the PerfectMoneyAPI in third party and include the file in controller / php file where you want to use functions of api
 
 Usage
 =====
-
-After installing the package, you should first "use" the package's namespace inside your code where you want to use **PerfectMoneyAPI** methods. For example in your Controller you should type below code at the beggining of your file, right after the **namespace your/name/space;** line:
-
-    use AyubIRZ\PerfectMoneyAPI\PerfectMoneyAPI;
+include "path_to_api/PerfectMoneyAPI.php";
     
 Then, you should initiate an instance of **PerfectMoneyAPI** class, wherever you needed it, as below:
 
@@ -119,11 +109,7 @@ The returned array is as below:
 Support
 =======
 
-If you have found a bug or you have a usage issue, please use the [GitHub issue tracker](https://github.com/AyubIRZ/PerfectMoneyAPI/issues).
+If you have found a bug or you have a usage issue, please use the [GitHub issue tracker](https://github.com/imran4mirza/PerfectMoneyAPI/issues).
 
-Or email me at: [ayubirazeh@gmail.com](mailto:ayubirazeh@gmail.com)
+Or email me at: [imran4mirza@gmail.com](mailto:ayubirazeh@gmail.com)
 
-License
-=======
-
-This package is published under the MIT License (MIT). Please see [License File](https://github.com/AyubIRZ/PerfectMoneyAPI/blob/master/LICENSE) for more information.
