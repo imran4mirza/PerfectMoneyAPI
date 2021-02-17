@@ -1,9 +1,7 @@
 <?php
 
 
-namespace AyubIRZ\PerfectMoneyAPI;
-
-use Exception;
+// Modified by Imran Mirza
 
 class PerfectMoneyAPI
 {
@@ -38,8 +36,12 @@ class PerfectMoneyAPI
     public function getAccountName($account)
     {
         // trying to open URL to process PerfectMoney getAccountName request
-        $data = file_get_contents("https://perfectmoney.is/acct/acc_name.asp?AccountID={$this->AccountID}&PassPhrase={$this->PassPhrase}&Account={$account}");
+        $urlString = "https://perfectmoney.is/acct/acc_name.asp?AccountID={$this->AccountID}&PassPhrase={$this->PassPhrase}&Account={$account}";
 
+        $ch = curl_init();
+           curl_setopt($ch, CURLOPT_URL, $urlString);
+           curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+           $data = curl_exec($ch);
         if($data == 'ERROR: Can not login with passed AccountID and PassPhrase'){
 
             throw new Exception('Invalid PerfectMoney Username or Password.', 500);
@@ -61,7 +63,12 @@ class PerfectMoneyAPI
     public function getBalance($account = null)
     {
         // trying to open URL to process PerfectMoney Balance request
-        $data = file_get_contents("https://perfectmoney.is/acct/balance.asp?AccountID={$this->AccountID}&PassPhrase={$this->PassPhrase}");
+        $urlString = "https://perfectmoney.is/acct/balance.asp?AccountID={$this->AccountID}&PassPhrase={$this->PassPhrase}";
+
+        $ch = curl_init();
+           curl_setopt($ch, CURLOPT_URL, $urlString);
+           curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+           $data = curl_exec($ch);
 
         // searching for hidden fields
         if (!preg_match_all("/<input name='(.*)' type='hidden' value='(.*)'>/", $data, $result, PREG_SET_ORDER)) {
@@ -94,21 +101,23 @@ class PerfectMoneyAPI
         $urlString .= ($paymentID != null) ? "&PAYMENT_ID={$paymentID}" : "";
 
         $urlString .= ($paymentID != null) ? "&Memo={$memo}" : "";
+        $ch = curl_init();
+           curl_setopt($ch, CURLOPT_URL, $urlString);
+           curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+           $data = curl_exec($ch);
 
-        // trying to open URL to process PerfectMoney Balance request
-        $data = file_get_contents($urlString);
 
-        // searching for hidden fields
-        if (!preg_match_all("/<input name='(.*)' type='hidden' value='(.*)'>/", $data, $result, PREG_SET_ORDER)) {
-            return false;
-        }
+         // searching for hidden fields
+         if (!preg_match_all("/<input name='(.*)' type='hidden' value='(.*)'>/", $data, $result, PREG_SET_ORDER)) {
+             return false;
+         }
 
-        // putting data to array
-        $array = [];
+         // putting data to array
+         $array = [];
 
-        foreach ($result as $item) {
-            $array[$item[1]] = $item[2];
-        }
+         foreach ($result as $item) {
+             $array[$item[1]] = $item[2];
+         }
 
         return $array;
     }
@@ -121,8 +130,11 @@ class PerfectMoneyAPI
     public function createEV($payerAccount, $amount)
     {
         // trying to open URL to process PerfectMoney Balance request
-        $data = file_get_contents("https://perfectmoney.is/acct/ev_create.asp?AccountID={$this->AccountID}&PassPhrase={$this->PassPhrase}&Payer_Account={$payerAccount}&Amount={$amount}");
-
+        $urlString = "https://perfectmoney.is/acct/ev_create.asp?AccountID={$this->AccountID}&PassPhrase={$this->PassPhrase}&Payer_Account={$payerAccount}&Amount={$amount}";
+        $ch = curl_init();
+           curl_setopt($ch, CURLOPT_URL, $urlString);
+           curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+           $data = curl_exec($ch);
         // searching for hidden fields
         if (!preg_match_all("/<input name='(.*)' type='hidden' value='(.*)'>/", $data, $result, PREG_SET_ORDER)) {
             return false;
@@ -141,7 +153,12 @@ class PerfectMoneyAPI
     public function transferEV($toAccount, $EVnumber, $EVactivationCode)
     {
         // trying to open URL to process PerfectMoney Balance request
-        $data = file_get_contents("https://perfectmoney.is/acct/ev_activate.asp?AccountID={$this->AccountID}&PassPhrase={$this->PassPhrase}&Payee_Account={$toAccount}&ev_number={$EVnumber}&ev_code={$EVactivationCode}");
+        $urlString = "https://perfectmoney.is/acct/ev_activate.asp?AccountID={$this->AccountID}&PassPhrase={$this->PassPhrase}&Payee_Account={$toAccount}&ev_number={$EVnumber}&ev_code={$EVactivationCode}";
+
+        $ch = curl_init();
+           curl_setopt($ch, CURLOPT_URL, $urlString);
+           curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+           $data = curl_exec($ch);
 
         // searching for hidden fields
         if (!preg_match_all("/<input name='(.*)' type='hidden' value='(.*)'>/", $data, $result, PREG_SET_ORDER)) {
